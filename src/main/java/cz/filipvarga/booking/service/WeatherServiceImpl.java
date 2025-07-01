@@ -1,5 +1,6 @@
 package cz.filipvarga.booking.service;
 
+import cz.filipvarga.booking.domain.Location;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -12,19 +13,20 @@ public class WeatherServiceImpl implements WeatherService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    public WeatherData getWeather(double latitude, double longitude) {
-        String url =    "https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude +
+    @Override
+    public WeatherData getWeather(Location location) {
+        String url =    "https://api.openweathermap.org/data/2.5/weather?" +
+                        "lat=" + location.getLatitude() + "&lon=" + location.getLongitude() +
                         "&appid=" + apiKey + "&units=metric";
 
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 
-        // Simplified parsing (can be replaced with ObjectMapper)
+        // Parse JSON response
         JSONObject json = new JSONObject(response.getBody());
 
         double temperature = json.getJSONObject("main").getDouble("temp");
-        String description = json.getJSONArray("weather").getJSONObject(0).getString("description");
+        String icon = json.getJSONArray("weather").getJSONObject(0).getString("icon");
 
-        return new WeatherData(temperature, description);
+        return new WeatherData(temperature, icon);
     }
-
 }

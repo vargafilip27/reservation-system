@@ -1,4 +1,4 @@
-package cz.filipvarga.booking.persistent;
+package cz.filipvarga.booking.repository;
 
 import cz.filipvarga.booking.domain.Location;
 import org.springframework.data.jpa.repository.JpaRepository;

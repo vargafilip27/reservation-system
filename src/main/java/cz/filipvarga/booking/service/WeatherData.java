@@ -5,10 +5,10 @@ import lombok.Getter;
 @Getter
 public class WeatherData {
     private double temperature;
-    private String description;
+    private String icon;
 
-    WeatherData(double temperature, String description) {
+    WeatherData(double temperature, String icon) {
         this.temperature = temperature;
-        this.description = description;
+        this.icon = icon;
     }
 }

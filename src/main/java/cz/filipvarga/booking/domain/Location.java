@@ -27,7 +27,7 @@ public class Location {
 
     private double temperature;
 
-    private String weather;
+    private String weatherIcon;
 
     @OneToMany(targetEntity = Room.class, mappedBy = "location", fetch = FetchType.LAZY)
     List<Room> rooms = new ArrayList<>();
